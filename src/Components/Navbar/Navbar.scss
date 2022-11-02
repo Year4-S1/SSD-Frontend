@@ -1,0 +1,15 @@
+@import '../colors.scss';
+
+
+.nav-back{
+    background-color: $dark-grey;
+    height: 7rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $light-grey;
+    font-size: 23px;
+    letter-spacing: 2px;
+
+}

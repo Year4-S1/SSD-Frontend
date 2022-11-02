@@ -1,0 +1,47 @@
+@import '../colors.scss';
+
+.login-container{
+    
+}
+
+.form-container{
+    width: 30%;
+    margin-top: 9%;
+    padding: 30px;
+}
+
+.login-ttl{
+    font-size: 30px;
+    color: $title-black;
+    font-weight: 600;
+    letter-spacing: 4px;
+    margin-bottom: 3%;
+}
+
+.center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.input-container{
+    margin-top: 10px;
+    width:65%;
+}
+
+
+.login-btn{
+    background-color: $dark-grey;
+    color: $light-grey;
+    width: 180px;
+    height: 50px;
+    font-size: 20px;
+    font-weight: 500;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+.login-btn:hover{
+    color: $white;
+}
