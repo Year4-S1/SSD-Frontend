@@ -1,0 +1,36 @@
+@import '../colors.scss';
+
+
+.createUser-ttl{
+    font-size: 30px;
+    color: $title-black;
+    font-weight: 600;
+    letter-spacing: 4px;
+    margin-bottom: 3%;
+}
+
+.center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.form-container-cu{
+    width: 60%;
+    margin-top: 2%;
+    padding: 30px;
+    background-color: aqua;
+}
+
+.flex-form{
+    display: flex;
+  justify-content: space-between;
+  width: 80%;
+
+}
+
+
+.input-container-cu{
+    width:50%;
+}

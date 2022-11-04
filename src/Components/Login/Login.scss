@@ -27,7 +27,7 @@
 
 .input-container{
     margin-top: 10px;
-    width:65%;
+    width:400px;
 }
 
 
@@ -44,4 +44,20 @@
 
 .login-btn:hover{
     color: $white;
+}
+
+.validation-txt{
+    margin-left: 100px;
+    color: $red;
+    font-size: 14px;
+}
+
+.icon{
+   width: 20px; 
+   margin-left: 10px;
+}
+
+.ff{
+    display: flex;
+    justify-content: left;
 }
