@@ -6,13 +6,16 @@ import '../CreateUser/CreateUser.scss'
 
 function CreateUser() {
 
-    const[fname, setfname]=useState("")
-    const[lname, setLname]=useState("")
-    const[email, setEmail]=useState("")
-    const[phone, setPhone]=useState("")
+    const [fname, setfname] = useState("")
+    const [lname, setLname] = useState("")
+    const [email, setEmail] = useState("")
+    const [emailErr, setEmailErr] = useState(false)
+    const [phone, setPhone] = useState("")
+    const [password, setPassword] = useState("")
+    const [userType, setUserType] = useState("")
 
     const handleFirstName = (e) => {
-        let name= e.target.value.trim();
+        let name = e.target.value.trim();
         setfname(name);
 
     };
@@ -28,20 +31,46 @@ function CreateUser() {
         let userNameValue = e.target.value.trim();
         setEmail(userNameValue);
 
+        console.log(checkEmail(email))
+
+        if (checkEmail(email) === false) {
+            setEmailErr(true)
+        }
+
+    };
+
+    const handlePhnNum = (e) => {
+
+        let phnNum = e.target.value.trim();
+        setPhone(phnNum);
+
+
+
+    };
+
+    const handleUserType = (type) => {
+
+       
+        setUserType(type);
+
+        console.log(userType)
+
+
+
     };
 
     const handlePassword = (e) => {
         let passwordValue = e.target.value;
-      
-        // setPassword(passwordValue);
+
+        setPassword(passwordValue);
 
     };
 
     const checkEmail = (email) => {
-		let emailPattern = new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-		)
-		return emailPattern.test(email);
-	}
+        let emailPattern = new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        )
+        return emailPattern.test(email);
+    }
 
     return (
         <Context.Consumer>
@@ -61,7 +90,8 @@ function CreateUser() {
                                             id="floatingInput"
                                             placeholder="John"
                                             onChange={(e) => {
-                                                handleFirstName(e)                                            }}
+                                                handleFirstName(e)
+                                            }}
                                             required />
                                         <label for="floatingInput">First Name</label>
                                     </div>
@@ -93,7 +123,7 @@ function CreateUser() {
                                             id="floatingInput"
                                             placeholder="John"
                                             onChange={(e) => {
-                                                // handleEmail(e)
+                                                handleEmail(e)
                                             }}
                                             required />
                                         <label for="floatingInput">Email</label>
@@ -102,12 +132,13 @@ function CreateUser() {
 
                                 <div>
                                     <div class="form-floating mb-3" style={{ width: '400px' }} >
-                                        <input type="text"
+                                        <input type="number"
                                             class="form-control "
                                             id="floatingInput"
                                             placeholder="Doe"
+                                            maxLength={10}
                                             onChange={(e) => {
-                                                // handleEmail(e)
+                                                handlePhnNum(e)
                                             }}
                                             required />
                                         <label for="floatingInput">Phone number</label>
@@ -116,7 +147,64 @@ function CreateUser() {
 
                             </div>
                         </div>
+                        <div className='center' style={{ width: '30%' }}>
+                            User Type
+                        </div>
 
+                        <div className='center' >
+                            <div className='flex-form' style={{ width: '50%', backgroundColor: 'pink' }}>
+                                <div>
+                                    <input type="radio" id="contactChoice1" name="contact" value="MANAGER" onChange={() => {
+                                        setUserType('MANAGER')
+                                    }} />
+
+                                    <label for="floatingInput" style={{ marginLeft: '5px' }}>Manager</label>
+
+                                </div>
+
+                                <div>
+                                    <input type="radio" id="contactChoice1" name="contact" value="WORKER" onChange={() => {
+                                        setUserType('WORKER') }}/>
+
+                                    <label for="floatingInput" style={{ marginLeft: '5px' }}>Worker</label>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div className='center'style={{ MARGINtOP: '20px' }} >
+                            <div className='flex-form'>
+                                <div>
+                                    <div class="form-floating mb-3" style={{ width: '400px' }} >
+                                        <input type="text"
+                                            class="form-control "
+                                            id="floatingInput"
+                                            placeholder="John"
+                                            onChange={(e) => {
+                                                handleEmail(e)
+                                            }}
+                                            required />
+                                        <label for="floatingInput">Email</label>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="form-floating mb-3" style={{ width: '400px' }} >
+                                        <input type="number"
+                                            class="form-control "
+                                            id="floatingInput"
+                                            placeholder="Doe"
+                                            maxLength={10}
+                                            onChange={(e) => {
+                                                handlePhnNum(e)
+                                            }}
+                                            required />
+                                        <label for="floatingInput">Phone number</label>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
 
                         {/*
                 <div className='center'>
@@ -169,8 +257,9 @@ function CreateUser() {
                 </div> */}
                     </div>
                 </div>
-            )}
-        </Context.Consumer>
+            )
+            }
+        </Context.Consumer >
     )
 }
 
