@@ -10,7 +10,7 @@ const Home = () => {
         <div style={{ marginTop: "30px", width: "100%" }}>
           <input
             type="text"
-            class="input-container"
+            class="input-container-save-message"
             id="floatingInput"
             placeholder="Title"
           />
