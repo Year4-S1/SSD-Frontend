@@ -31,7 +31,7 @@ const AppProvider = (props) => {
             },
             method: "post",
             baseURL: `${config.apiEndpoints.protocol}${config.apiEndpoints.baseURL}`,
-            url: "login",
+            url: "user/login",
               data: credentials,
         }).then((response) =>{
 
@@ -85,7 +85,7 @@ const AppProvider = (props) => {
             },
             method: "post",
             baseURL: `${config.apiEndpoints.protocol}${config.apiEndpoints.baseURL}`,
-            url: "create",
+            url: "user/create",
               data: credentials,
         }).then((response) =>{
             

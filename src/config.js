@@ -1,7 +1,7 @@
 const path = {
     apiEndpoints: {
       protocol: "http://",
-      baseURL: "localhost:8089/user/",
+      baseURL: "localhost:8089/",
       
     },
    
