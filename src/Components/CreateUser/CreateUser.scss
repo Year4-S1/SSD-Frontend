@@ -1,0 +1,56 @@
+@import '../colors.scss';
+
+
+.createUser-ttl{
+    font-size: 30px;
+    color: $title-black;
+    font-weight: 600;
+    letter-spacing: 4px;
+    margin-bottom: 3%;
+}
+
+.center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.form-container-cu{
+    width: 60%;
+    margin-top: 2%;
+    padding: 30px;
+}
+
+.flex-form{
+    display: flex;
+  justify-content: space-between;
+  width: 80%;
+
+}
+
+
+.input-container-cu{
+    width:50%;
+}
+
+// @layer base {
+//     input[type="number"]::-webkit-inner-spin-button,
+//     input[type="number"]::-webkit-outer-spin-button {
+//       -webkit-appearance: none;
+//       margin: 0;
+//     }
+//   }
+
+
+  
+.create-btn{
+  background-color: $dark-grey;
+  color: $light-grey;
+  width: 180px;
+  height: 50px;
+  font-size: 20px;
+  font-weight: 500;
+  border-radius: 7px;
+  cursor: pointer;
+}

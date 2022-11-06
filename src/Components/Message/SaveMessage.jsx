@@ -1,16 +1,16 @@
 import React from "react";
 import "./SaveMessage.scss";
 
-const Home = () => {
+const SaveMessage = () => {
   return (
     <div className="base-container center">
-      <div className="form-container ">
+      <div className="form-container-wh ">
         <div className="center title">Save Message</div>
 
         <div style={{ marginTop: "30px", width: "100%" }}>
           <input
             type="text"
-            class="input-container-save-message"
+            class="input-container-sm"
             id="floatingInput"
             placeholder="Title"
           />
@@ -27,11 +27,11 @@ const Home = () => {
         </div>
 
         <div className="center" style={{ marginTop: "30px" }}>
-          <div className="login-btn center ">Login</div>
+          <div className="login-btn center ">Save Message</div>
         </div>
       </div>
     </div>
   );
 };
 
-export default Home;
+export default SaveMessage;
