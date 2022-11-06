@@ -5,7 +5,7 @@
     height: 100%;
 }
 
-.form-container{
+.form-container-upload{
     width: 30%;
     padding: 30px;
 }
@@ -54,7 +54,7 @@
     outline: none;
 }
 
-.btn{
+.btn-upload{
     background-color: $dark-grey;
     color: $light-grey;
     width: 180px;
@@ -75,3 +75,14 @@
 .rowC{display:flex; flex-direction:row;}
 
 .colC{display:flex; flex-direction:column;}
+
+
+.filename{
+    font-size: 12px;
+}
+
+.validation-txt-upload{
+    color: $red;
+    font-size: 14px;
+    margin-top: 10px;
+}

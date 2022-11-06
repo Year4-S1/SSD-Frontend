@@ -35,6 +35,7 @@ const AppProvider = (props) => {
               data: credentials,
         }).then((response) =>{
 
+
             if(response.data.data === "Password is not matched" || response.data.data === "User not found" ){
                 setLoginErr(true)
             }
@@ -46,6 +47,7 @@ const AppProvider = (props) => {
 
                 localStorage.setItem("AccessToken",response.data.data.responseData.token)
                 localStorage.setItem("UserType",userType )
+                localStorage.setItem("UserId",response.data.data.responseData.user_id )
 
                 if(userType === 'ADMIN'){
                     navigate('/adminHome')
@@ -80,7 +82,7 @@ const AppProvider = (props) => {
 
         axios({
             headers: {
-                // "Authorization": localStorage?.getItem("AccessToken"),
+                "Authorization": localStorage?.getItem("AccessToken"),
                 "Access-Control-Allow-Origin": "*",
             },
             method: "post",
@@ -94,7 +96,37 @@ const AppProvider = (props) => {
             // setCookie('User-Type',response.data.data.responseData.userType  )
 
             
+        })
+        .catch((error) => {
+            console.log(error)
+          });
+      };
 
+
+      const UploadFile =(file, user) =>{
+
+        console.log(file, user)
+
+        let credentials = {
+            "file": file,
+            "createdBy": user,
+            
+        }
+
+
+        axios({
+            headers: {
+                "Authorization": localStorage?.getItem("AccessToken"),
+                "Access-Control-Allow-Origin": "*",
+            },
+            method: "post",
+            baseURL: `${config.apiEndpoints.protocol}${config.apiEndpoints.baseURL}`,
+            url: "file/upload",
+              data: credentials,
+        }).then((response) =>{
+            
+            alert("File uploaded")
+                    
 
         })
         .catch((error) => {
@@ -115,7 +147,8 @@ const AppProvider = (props) => {
                 loginErr,
                 setLoginErr,
                 userType,
-                setUserType
+                setUserType,
+                UploadFile
             }}
         >
             {props.children}

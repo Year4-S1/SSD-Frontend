@@ -8,6 +8,8 @@ import Home from './Components/Home/Home'
 import SaveMessage from './Components/Message/SaveMessage'
 import AdminHome from './Components/AdminHome/AdminHome'
 import Files from './Components/File/Files'
+import UploadFile from './Components/File/UploadFile'
+
 
 
 const RouteFile = () => {
@@ -21,7 +23,7 @@ const RouteFile = () => {
           <Route path='/createUser' element={<CreateUser />} />
           <Route path='/home' element={<Home/>} />
           <Route path='/saveMessage' element={<SaveMessage/>} />
-          <Route path='/uploadFile' element={<Files/>} />
+          <Route path='/uploadFile' element={<UploadFile/>} />
 
         </Routes>
       </AppProvider>

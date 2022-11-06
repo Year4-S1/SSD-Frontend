@@ -32,7 +32,10 @@ const Home = () => {
             {context.userType !== 'WORKER'? 
             <div className="rowC">
               <div className="center" style={{ margin: "30px" }}>
-                <div className="card-btn center ">Upload Files</div>
+                <div className="card-btn center "
+                onClick={()=>{
+                  navigate('/uploadFile')
+                }}>Upload Files</div>
               </div>
               <div className="center" style={{ margin: "30px" }}>
                 <div className="card-btn center ">View Files</div>
