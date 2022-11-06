@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import Context from "../../ContextAPI/Context";
 import '../CreateUser/CreateUser.scss'
+import EyeOpen from '../../Assets/eye-regular.svg'
+import EyeClose from '../../Assets/eye-slash-regular.svg'
+import { getStaticContextFromError } from '@remix-run/router';
 
 
 
@@ -12,7 +15,14 @@ function CreateUser() {
     const [emailErr, setEmailErr] = useState(false)
     const [phone, setPhone] = useState("")
     const [password, setPassword] = useState("")
+    const [confirmPassword, setConfirmPassword] = useState("")
     const [userType, setUserType] = useState("")
+    const [showPwd, setShowPwd] = useState(false);
+    const [emailError, setEmailError] = useState(false);
+    const [pwdError, setPwdError] = useState(false);
+    const [formError, setFromError] = useState(false);
+    
+
 
     const handleFirstName = (e) => {
         let name = e.target.value.trim();
@@ -31,11 +41,8 @@ function CreateUser() {
         let userNameValue = e.target.value.trim();
         setEmail(userNameValue);
 
-        console.log(checkEmail(email))
 
-        if (checkEmail(email) === false) {
-            setEmailErr(true)
-        }
+
 
     };
 
@@ -50,7 +57,7 @@ function CreateUser() {
 
     const handleUserType = (type) => {
 
-       
+
         setUserType(type);
 
         console.log(userType)
@@ -72,6 +79,14 @@ function CreateUser() {
         return emailPattern.test(email);
     }
 
+
+    const handleConfirmPassword = (e) => {
+        let passwordValue = e.target.value;
+
+        setConfirmPassword(passwordValue);
+
+    };
+
     return (
         <Context.Consumer>
             {(context) => (
@@ -81,7 +96,7 @@ function CreateUser() {
                             Create User
                         </div>
 
-                        <div className='center' >
+                        <div className='center' style={{ marginTop: '30px' }}>
                             <div className='flex-form'>
                                 <div>
                                     <div class="form-floating mb-3" style={{ width: '400px' }} >
@@ -114,7 +129,7 @@ function CreateUser() {
                             </div>
                         </div>
 
-                        <div className='center' >
+                        <div className='center' style={{ marginTop: '30px' }}>
                             <div className='flex-form'>
                                 <div>
                                     <div class="form-floating mb-3" style={{ width: '400px' }} >
@@ -147,12 +162,16 @@ function CreateUser() {
 
                             </div>
                         </div>
-                        <div className='center' style={{ width: '30%' }}>
+
+                        {emailErr ? <div className='validation-txt ' style={{ marginLeft: '130px' }}>Please Use Valid Email</div> : ''}
+
+
+                        <div className='center' style={{ width: '30%', marginTop: '30px' }}>
                             User Type
                         </div>
 
-                        <div className='center' >
-                            <div className='flex-form' style={{ width: '50%', backgroundColor: 'pink' }}>
+                        <div className='center' style={{ marginTop: '10px' }}>
+                            <div className='flex-form' style={{ width: '50%' }}>
                                 <div>
                                     <input type="radio" id="contactChoice1" name="contact" value="MANAGER" onChange={() => {
                                         setUserType('MANAGER')
@@ -164,7 +183,8 @@ function CreateUser() {
 
                                 <div>
                                     <input type="radio" id="contactChoice1" name="contact" value="WORKER" onChange={() => {
-                                        setUserType('WORKER') }}/>
+                                        setUserType('WORKER')
+                                    }} />
 
                                     <label for="floatingInput" style={{ marginLeft: '5px' }}>Worker</label>
                                 </div>
@@ -172,90 +192,95 @@ function CreateUser() {
                             </div>
                         </div>
 
-                        <div className='center'style={{ MARGINtOP: '20px' }} >
+
+
+                        <div className='center' style={{ marginTop: '30px' }} >
                             <div className='flex-form'>
                                 <div>
-                                    <div class="form-floating mb-3" style={{ width: '400px' }} >
-                                        <input type="text"
-                                            class="form-control "
+                                    <div class="form-floating mb-3 " style={{ width: '400px' }} >
+
+                                        <input type={showPwd ? 'text' : 'password'}
+                                            class="form-control"
                                             id="floatingInput"
-                                            placeholder="John"
+                                            placeholder="name@example.com" required
                                             onChange={(e) => {
-                                                handleEmail(e)
-                                            }}
-                                            required />
-                                        <label for="floatingInput">Email</label>
+                                                handlePassword(e)
+                                            }} />
+
+                                        <label for="floatingInput">Password</label>
+
                                     </div>
+
                                 </div>
 
                                 <div>
-                                    <div class="form-floating mb-3" style={{ width: '400px' }} >
-                                        <input type="number"
-                                            class="form-control "
+                                    <div class="form-floating mb-3 " style={{ width: '400px', display: 'flex' }} >
+
+                                        <input type={showPwd ? 'text' : 'password'}
+                                            class="form-control"
                                             id="floatingInput"
-                                            placeholder="Doe"
-                                            maxLength={10}
+                                            placeholder="name@example.com" required
                                             onChange={(e) => {
-                                                handlePhnNum(e)
-                                            }}
-                                            required />
-                                        <label for="floatingInput">Phone number</label>
+                                                handleConfirmPassword(e)
+                                            }} />
+
+                                        <label for="floatingInput">Confirm Password</label>
+                                        {showPwd ?
+                                            <img src={EyeClose} className='icon' onClick={() => {
+                                                setShowPwd(false)
+                                            }} />
+                                            :
+                                            <img src={EyeOpen} className='icon' onClick={() => {
+                                                setShowPwd(true)
+                                            }} />
+                                        }
                                     </div>
+
                                 </div>
 
                             </div>
+
+
                         </div>
 
-                        {/*
-                <div className='center'>
-                    <div className='input-container '>
-                        <div>
-                            <div class="form-floating mb-3 " style={{ display: 'flex' }} >
+                        {formError ? <div className='validation-txt ' style={{ marginLeft: '130px' }}>Please Fill All Fields</div> : ''}
+                         {pwdError ? <div className='validation-txt ' style={{ marginLeft: '130px' }}>Passwords do not match</div> : ''}
 
-                                <input type={showPwd?'text':'password'}
-                                    class="form-control"
-                                    id="floatingInput"
-                                    placeholder="name@example.com" required
-                                    onChange={(e) => {
-                                        handlePassword(e)
-                                    }} />
 
-                                <label for="floatingInput">Password</label>
-                                {showPwd ?
-                                    <img src={EyeClose} className='icon' onClick={() => {
-                                        setShowPwd(false)
-                                    }} />
-                                    :
-                                    <img src={EyeOpen} className='icon' onClick={() => {
-                                        setShowPwd(true)
-                                    }} />
-                                }
+
+                        <div className='center' style={{ marginTop: '30px' }}>
+                            <div className='create-btn center '
+                                onClick={() => {
+                                    setFromError(false);
+                                    setFromError(false);
+
+
+                                    if(fname ===''|| lname ===""|| email ==="" || phone ==="" || userType ===""|| password === " " || confirmPassword ===""){
+                                        setFromError(true);
+                                    }
+
+                                    else if (checkEmail(email) === false) {
+                                        setFromError(false);
+                                        setEmailErr(true)
+                                    }
+                                  
+                                    else if(password != confirmPassword){
+                                        setPwdError(true)
+                                        setEmailErr(false)
+
+                                    }
+                                    else {
+
+                                        setPwdError(false)
+                                        context.CreateUser(fname, lname, email, phone, userType, password)
+                                    }
+                                    
+                                }}>
+                                Create User
                             </div>
-
                         </div>
-
                     </div>
-                </div>
 
-                {pwdError ? <div className='validation-txt '>! Please fill all fields</div> : ''}
-
-
-
-
-                <div className='center' style={{ marginTop: '30px' }}>
-                    <div className='login-btn center '
-                        onClick={() => {
-                            if (email === "" || password === "") {
-                                setPwdError(true);
-                            }
-                            else if(email !== "" && password !== ""){
-                                context?.Login(email,password);
-                            }
-                        }}>
-                        Login
-                    </div>
-                </div> */}
-                    </div>
                 </div>
             )
             }

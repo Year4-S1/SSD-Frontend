@@ -4,13 +4,13 @@ import "./SaveMessage.scss";
 const SaveMessage = () => {
   return (
     <div className="base-container center">
-      <div className="form-container ">
+      <div className="form-container-wh ">
         <div className="center title">Save Message</div>
 
         <div style={{ marginTop: "30px", width: "100%" }}>
           <input
             type="text"
-            class="input-container"
+            class="input-container-sm"
             id="floatingInput"
             placeholder="Title"
           />

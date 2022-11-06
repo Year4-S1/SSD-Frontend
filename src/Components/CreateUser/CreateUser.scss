@@ -20,7 +20,6 @@
     width: 60%;
     margin-top: 2%;
     padding: 30px;
-    background-color: aqua;
 }
 
 .flex-form{
@@ -35,10 +34,23 @@
     width:50%;
 }
 
-@layer base {
-    input[type="number"]::-webkit-inner-spin-button,
-    input[type="number"]::-webkit-outer-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-  }
+// @layer base {
+//     input[type="number"]::-webkit-inner-spin-button,
+//     input[type="number"]::-webkit-outer-spin-button {
+//       -webkit-appearance: none;
+//       margin: 0;
+//     }
+//   }
+
+
+  
+.create-btn{
+  background-color: $dark-grey;
+  color: $light-grey;
+  width: 180px;
+  height: 50px;
+  font-size: 20px;
+  font-weight: 500;
+  border-radius: 7px;
+  cursor: pointer;
+}

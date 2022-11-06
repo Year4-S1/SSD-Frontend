@@ -11,6 +11,7 @@ const Login = () => {
     const [emailError, setEmailError] = useState(false);
     const [pwdError, setPwdError] = useState(false);
     const [showPwd, setShowPwd] = useState(false);
+    
 
     const handleEmail = (e) => {
         let userNameValue = e.target.value.trim();
@@ -92,6 +93,8 @@ const Login = () => {
                         </div>
 
                         {pwdError ? <div className='validation-txt '>! Please fill all fields</div> : ''}
+                        {context.loginErr ? <div className='validation-txt '>! Login Error</div> : ''}
+
 
 
 
@@ -109,7 +112,11 @@ const Login = () => {
                                 Login
                             </div>
                         </div>
+
+
+
                     </div>
+
                 </div>
             )}
         </Context.Consumer>
