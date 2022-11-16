@@ -12,8 +12,8 @@ const AppProvider = (props) => {
     const navigate = useNavigate();
 
     const [cookies, setCookie, removeCookie] = useCookies("user");
-    const[loginErr, setLoginErr]=useState(false);
-    const[userType, setUserType]=useState('');
+    const [loginErr, setLoginErr] = useState(false);
+    const [userType, setUserType] = useState('');
 
     const meme = 'kkkk'
 
@@ -32,34 +32,39 @@ const AppProvider = (props) => {
             method: "post",
             baseURL: `${config.apiEndpoints.protocol}${config.apiEndpoints.baseURL}`,
             url: "user/login",
-              data: credentials,
-        }).then((response) =>{
+            data: credentials,
+        }).then((response) => {
 
 
-            if(response.data.data === "Password is not matched" || response.data.data === "User not found" ){
+            if (response.data.data === "Password is not matched" || response.data.data === "User not found") {
                 setLoginErr(true)
             }
-            else{
+            else {
 
-                setUserType(response.data.data.responseData.userType) ;
+                setUserType(response.data.data.responseData.userType);
 
                 setLoginErr(false)
 
-                localStorage.setItem("AccessToken",response.data.data.responseData.token)
-                localStorage.setItem("UserType",userType )
-                localStorage.setItem("UserId",response.data.data.responseData.user_id )
+                localStorage.setItem("AccessToken", response.data.data.responseData.token)
+                localStorage.setItem("UserType", response.data.data.responseData.userType)
+                localStorage.setItem("UserId", response.data.data.responseData.user_id)
 
-                if(userType === 'ADMIN'){
+                if (userType === 'ADMIN') {
                     navigate('/adminHome')
                 }
-                else{
+                else {
                     navigate('/home')
                 }
 
 
             }
-            
-       
+
+
+            setTimeout(() => {
+                localStorage.clear()
+                navigate('/')
+            }, 18000000)
+
 
         })
 
@@ -67,7 +72,13 @@ const AppProvider = (props) => {
     }
 
 
-    const CreateUser =(fname, lname, email, phnNum, userType, password) =>{
+    const logout = () => {
+        localStorage.clear()
+        navigate('/')
+    }
+
+
+    const CreateUser = (fname, lname, email, phnNum, userType, password) => {
 
         let credentials = {
             "firstName": fname,
@@ -76,7 +87,7 @@ const AppProvider = (props) => {
             "email": email,
             "phoneNumber": phnNum,
             "password": password,
-            
+
         }
 
 
@@ -88,29 +99,29 @@ const AppProvider = (props) => {
             method: "post",
             baseURL: `${config.apiEndpoints.protocol}${config.apiEndpoints.baseURL}`,
             url: "user/create",
-              data: credentials,
-        }).then((response) =>{
-            
+            data: credentials,
+        }).then((response) => {
+
             console.log(response)
             // setCookie('Access-Token',response.data.data.responseData.token  )
             // setCookie('User-Type',response.data.data.responseData.userType  )
 
-            
+
         })
-        .catch((error) => {
-            console.log(error)
-          });
-      };
+            .catch((error) => {
+                console.log(error)
+            });
+    };
 
 
-      const UploadFile =(file, user) =>{
+    const UploadFile = (file, user) => {
 
         console.log(file, user)
 
         let credentials = {
             "file": file,
             "createdBy": user,
-            
+
         }
 
 
@@ -122,20 +133,50 @@ const AppProvider = (props) => {
             method: "post",
             baseURL: `${config.apiEndpoints.protocol}${config.apiEndpoints.baseURL}`,
             url: "file/upload",
-              data: credentials,
-        }).then((response) =>{
-            
+            data: credentials,
+        }).then((response) => {
+
+            console.log(response)
             alert("File uploaded")
-                    
+
 
         })
-        .catch((error) => {
-            console.log(error)
-          });
-      };
+            .catch((error) => {
+                console.log(error)
+            });
+    };
 
 
-    
+    const SaveMessage = (title, message) => {
+
+
+
+        let data = {
+            "title": title,
+            "message": message,
+            "createdBy": localStorage.getItem("UserId")
+        }
+        console.log(data)
+        axios({
+            headers: {
+                "Authorization": localStorage?.getItem("AccessToken"),
+                "Access-Control-Allow-Origin": "*",
+            },
+            method: "post",
+            baseURL: `${config.apiEndpoints.protocol}${config.apiEndpoints.baseURL}`,
+            url: "message/create",
+            data: data,
+        }).then((response) => {
+            console.log(response)
+
+
+        })
+
+
+    }
+
+
+
 
 
     return (
@@ -148,7 +189,9 @@ const AppProvider = (props) => {
                 setLoginErr,
                 userType,
                 setUserType,
-                UploadFile
+                UploadFile,
+                SaveMessage,
+                logout
             }}
         >
             {props.children}

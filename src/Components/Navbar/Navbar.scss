@@ -8,8 +8,27 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    letter-spacing: 2px;
+
+}
+
+.nav-ttl{
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: $light-grey;
     font-size: 23px;
     letter-spacing: 2px;
+
+}
+
+.logout-btn{
+
+    background-color: $light-grey;
+    color: $dark-grey;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
 
 }

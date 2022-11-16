@@ -29,8 +29,9 @@ const Home = () => {
                 <div className="card-btn center ">View Messages</div>
               </div>
             </div>
-            {context.userType !== 'WORKER'? 
+            {localStorage.getItem("UserType") !== 'WORKER'? 
             <div className="rowC">
+              {console.log(localStorage.getItem("UserType"),'lllllllllllllllll')}
               <div className="center" style={{ margin: "30px" }}>
                 <div className="card-btn center "
                 onClick={()=>{
