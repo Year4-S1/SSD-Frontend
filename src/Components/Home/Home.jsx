@@ -34,9 +34,9 @@ const Home = () => {
                   navigate('/saveMessage')
                 }}>Save Message</div>
               </div>
-              <div className="center" style={{ margin: "30px" }}>
+              {/* <div className="center" style={{ margin: "30px" }}>
                 <div className="card-btn center ">View Messages</div>
-              </div>
+              </div> */}
             </div>
             {localStorage.getItem("UserType") !== 'WORKER'? 
             <div className="rowC">
@@ -46,9 +46,9 @@ const Home = () => {
                   navigate('/uploadFile')
                 }}>Upload Files</div>
               </div>
-              <div className="center" style={{ margin: "30px" }}>
+              {/* <div className="center" style={{ margin: "30px" }}>
                 <div className="card-btn center ">View Files</div>
-              </div>
+              </div> */}
             </div>
             :''}
           </div>
