@@ -9,7 +9,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   useEffect(()=>{
-    if(localStorage.getItem('userType') === 'ADMIN'){
+    if(localStorage.getItem('loggedIn') !== 'true'){
       navigate('/')
     }
   })
@@ -17,6 +17,15 @@ const Home = () => {
     <Context.Consumer>
       {(context) => (
         <div className="base-container center">
+          
+          {localStorage.getItem("UserType") === "ADMIN"?
+          <div className="center" style={{ margin: "30px" }}>
+          <div className="card-btn center "
+          onClick={()=>{
+            navigate('/createUser')
+          }}>Create User</div>
+        </div> :
+
           <div className="colC">
             <div className="rowC">
               <div className="center" style={{ margin: "30px" }}>
@@ -31,7 +40,6 @@ const Home = () => {
             </div>
             {localStorage.getItem("UserType") !== 'WORKER'? 
             <div className="rowC">
-              {console.log(localStorage.getItem("UserType"),'lllllllllllllllll')}
               <div className="center" style={{ margin: "30px" }}>
                 <div className="card-btn center "
                 onClick={()=>{
@@ -44,6 +52,7 @@ const Home = () => {
             </div>
             :''}
           </div>
+          }
         </div>
       )}
     </Context.Consumer>

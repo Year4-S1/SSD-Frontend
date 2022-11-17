@@ -14,6 +14,8 @@ const AppProvider = (props) => {
     const [cookies, setCookie, removeCookie] = useCookies("user");
     const [loginErr, setLoginErr] = useState(false);
     const [userType, setUserType] = useState('');
+    const [firstLogin, setFirstLogin] = useState(false)
+
 
     const meme = 'kkkk'
 
@@ -27,7 +29,7 @@ const AppProvider = (props) => {
 
         axios({
             headers: {
-                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Origin": "*"
             },
             method: "post",
             baseURL: `${config.apiEndpoints.protocol}${config.apiEndpoints.baseURL}`,
@@ -41,32 +43,42 @@ const AppProvider = (props) => {
             }
             else {
 
-                setUserType(response.data.data.responseData.userType);
 
-                setLoginErr(false)
-
-                localStorage.setItem("AccessToken", response.data.data.responseData.token)
-                localStorage.setItem("UserType", response.data.data.responseData.userType)
-                localStorage.setItem("UserId", response.data.data.responseData.user_id)
-
-                if (userType === 'ADMIN') {
-                    navigate('/adminHome')
+                if (response.data.data.responseData.loginStatus === false) {
+                    localStorage.setItem("UserId", response.data.data.responseData.user_id)
+                    localStorage.setItem("AccessToken", response.data.data.responseData.token)
+                    setFirstLogin(true)
                 }
                 else {
-                    navigate('/home')
+
+
+                    setUserType(response.data.data.responseData.userType);
+
+                    setLoginErr(false)
+
+                    localStorage.setItem("AccessToken", response.data.data.responseData.token)
+                    localStorage.setItem("UserType", response.data.data.responseData.userType)
+                    localStorage.setItem("UserId", response.data.data.responseData.user_id)
+                    localStorage.setItem("loggedIn", true)
+
+                    if (userType === 'ADMIN') {
+                        navigate('/adminHome')
+                    }
+                    else {
+                        navigate('/home')
+                        // }
+                    }
+
                 }
 
 
+                setTimeout(() => {
+                    localStorage.clear()
+                    navigate('/')
+                }, 18000000)
+
             }
-
-
-            setTimeout(() => {
-                localStorage.clear()
-                navigate('/')
-            }, 18000000)
-
-
-        })
+            })
 
 
     }
@@ -103,6 +115,7 @@ const AppProvider = (props) => {
         }).then((response) => {
 
             console.log(response)
+            alert("User Created")
             // setCookie('Access-Token',response.data.data.responseData.token  )
             // setCookie('User-Type',response.data.data.responseData.userType  )
 
@@ -112,6 +125,47 @@ const AppProvider = (props) => {
                 console.log(error)
             });
     };
+
+
+    const UpdatePw = (old, newpw) => {
+
+        let credentials = {
+            "id": localStorage.getItem("UserId"),
+            "oldPassword": old,
+            "newPassword": newpw
+          
+
+        }
+
+        console.log(credentials)
+
+
+        axios({
+            headers: {
+                "Authorization": localStorage?.getItem("AccessToken"),
+                "Access-Control-Allow-Origin": "*",
+            },
+            method: "put",
+            baseURL: `${config.apiEndpoints.protocol}${config.apiEndpoints.baseURL}`,
+            url: "user/update/password",
+            data: credentials,
+        }).then((response) => {
+
+            console.log(response)
+            alert("Password Update Success")
+            navigate('/')
+            setFirstLogin(false)
+            // setCookie('Access-Token',response.data.data.responseData.token  )
+            // setCookie('User-Type',response.data.data.responseData.userType  )
+
+            
+
+        })
+            .catch((error) => {
+                console.log(error)
+            });
+    };
+
 
 
     const UploadFile = (file, user) => {
@@ -191,7 +245,10 @@ const AppProvider = (props) => {
                 setUserType,
                 UploadFile,
                 SaveMessage,
-                logout
+                logout,
+                firstLogin,
+                setFirstLogin,
+                UpdatePw
             }}
         >
             {props.children}
